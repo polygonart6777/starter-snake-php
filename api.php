@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Implements Battlesnake API response functions.
+ *
+ * @see https://docs.battlesnake.com/snake-api
+ */
+
+/**
+ * @param string $color    Must be a hexadecimal color string, preceded with a hash symbol, e.g. "#ff00ff"
+ * @param string $headType Head type string, see API docs for accepted values
+ * @param string $tailType Tail type string, see API docs for accepted values
+ */
+function startResponse(string $color, string $headType = 'beluga', string $tailType = 'block-bum') : void
+{
+    outputJsonResponse(['color' => $color, 'headType' => $headType, 'tailType' => $tailType]);
+}
+
+/**
+ * Outputs a move response to the Battlesnake game engine.
+ *
+ * @param string $move Must be one of 'up', 'down', 'left', 'right', as per Battlesnake API
+ *
+ * @throws Exception
+ */
+function moveResponse(string $move) : void
+{
+    if (! in_array($move, ['up', 'down', 'left', 'right']))
+    {
+        throw new \Exception('Move must be one of [up, down, left, right]');
+    }
+
+    outputJsonResponse(['move' => $move]);
+}
+
+/**
+ * Responses to requests to the /end endpoint are ignored by the Battlesnake engine, so this function outputs nothing.
+ */
+function endResponse() : void
+{
+    echo '';
+}
+
+/**
+ * Echoes a traditional 'pong' response to requests to the /ping endpoint.
+ */
+function pingResponse() : void
+{
+    echo 'pong';
+}
+
+/**
+ * Utility function to output an array of response data as JSON.
+ *
+ * @param array $responseData Array of data to be cast to an object and encoded to JSON
+ */
+function outputJsonResponse(array $responseData) : void
+{
+    $body = (object) $responseData;
+    header('Content-Type: application/json');
+    echo json_encode($body);
+}
