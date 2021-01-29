@@ -28,7 +28,9 @@ This is a basic implementation of the [Battlesnake API](https://docs.battlesnake
 4. Once your Repl is ready to run, click `Run ▶️` at the top of the screen.  Once PHP starting process is complete, your Battlesnake server will start and you should see the following:
 
     ```
-    [Thread-0] INFO org.eclipse.jetty.server.Server - Started @ms
+    PHP 7.2.24-0ubuntu0.18.04.7 Development Server started at 
+    Listening on http://0.0.0.0:8000
+    Document root is /home/runner/starter-snake-php
     ```
 
 5. Above the terminal window you'll see the live output from your Battlesnake server, including its URL. That URL will be the URL used to create your Battlesnake in the next step. If you visit that URL in your browser, you should see text similar to this:
@@ -77,7 +79,7 @@ Locate the `move` section inside [index.php](index.php#L34). You should see code
 
     // TODO - Implement your Battlesnake here!
     $possibleMove = ['up', 'down', 'left', 'right'];
-    moveResponse(array_rand($possibleMove));
+    moveResponse($possibleMove[array_rand($possibleMove)]);
 ```
 
 Possible moves are "up", "down", "left", or "right". To start your Battlesnake will choose a move randomly. Your goal as a developer is to read information sent to you about the board (available in the `$data` variable) and make an intelligent decision about where your Battlesnake should move next. 

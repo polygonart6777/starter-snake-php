@@ -39,7 +39,7 @@ elseif ($requestUri == '/move')
 
     // TODO - Implement your Battlesnake here!
     $possibleMove = ['up', 'down', 'left', 'right'];
-    moveResponse(array_rand($possibleMove));
+    moveResponse($possibleMove[array_rand($possibleMove)]);
 }
 elseif ($requestUri == '/end')
 {
