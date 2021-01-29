@@ -12,38 +12,42 @@ include_once 'api.php';
 
 // Get the requested URI without any query parameters on the end
 $requestUri = strtok($_SERVER['REQUEST_URI'], '?');
+if ($requestUri == '/')  
+{   //Index Section
+    $apiversion = "1";
+    $author     = "";           // TODO: Your Battlesnake Username
+    $color      = "#888888";    // TODO: Personalize
+    $head       = "default";    // TODO: Personalize
+    $tail       = "default";    // TODO: Personalize
 
-if ($requestUri == '/start')
+    indexResponse($apiversion,$author,$color,$head, $tail);
+}
+elseif ($requestUri == '/start')
 {
     // read the incoming request body stream and decode the JSON
     $data = json_decode(file_get_contents('php://input'));
 
     // TODO - if you have a stateful snake, you could do initialization work here
-
-    startResponse('#ff0000', 'beluga', 'block-bum');
+    startResponse();
 }
 elseif ($requestUri == '/move')
-{
+{   //Move Section
     // read the incoming request body stream and decode the JSON
     $data = json_decode(file_get_contents('php://input'));
 
     error_log('Received move data: '.print_r($data, true));
 
     // TODO - Implement your Battlesnake here!
-    moveResponse('up');
+    $possibleMove = ['up', 'down', 'left', 'right'];
+    moveResponse(array_rand($possibleMove));
 }
 elseif ($requestUri == '/end')
 {
+     // read the incoming request body stream and decode the JSON
+     $data = json_decode(file_get_contents('php://input'));
+
+     // TODO - if you have a stateful snake, you could do finalize work here
     endResponse();
-}
-elseif ($requestUri == '/ping')
-{
-    pingResponse();
-}
-elseif ($requestUri == '/')
-{
-    echo 'Battlesnake server is running! Documentation can be found at
-	<a href="https://docs.battlesnake.com">https://docs.battlesnake.com</a>.';
 }
 else
 {

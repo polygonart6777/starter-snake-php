@@ -3,17 +3,19 @@
 /**
  * Implements Battlesnake API response functions.
  *
- * @see https://docs.battlesnake.com/snake-api
+ * @see https://docs.battlesnake.com/references/api
  */
 
 /**
- * @param string $color    Must be a hexadecimal color string, preceded with a hash symbol, e.g. "#ff00ff"
- * @param string $headType Head type string, see API docs for accepted values
- * @param string $tailType Tail type string, see API docs for accepted values
+ * @param string $apiversion Must be the apiversion use by the snake
+ * @param string $author     Must be empty or contain the username of the snake' author
+ * @param string $color      Must be a hexadecimal color string, preceded with a hash symbol, e.g. "#ff00ff"
+ * @param string $headType   Head type string, see API docs for accepted values
+ * @param string $tailType   Tail type string, see API docs for accepted values
  */
-function startResponse(string $color, string $headType = 'beluga', string $tailType = 'block-bum') : void
+function indexResponse(string $apiversion , string $author, string $color, string $headType , string $tailType) : void
 {
-    outputJsonResponse(['color' => $color, 'headType' => $headType, 'tailType' => $tailType]);
+    outputJsonResponse(['apiversion' => $apiversion, 'author' => $author, 'color' => $color, 'head' => $headType, 'tail' => $tailType]);
 }
 
 /**
@@ -34,6 +36,15 @@ function moveResponse(string $move) : void
 }
 
 /**
+ * Responses to requests to the /start endpoint are ignored by the Battlesnake engine, so this function outputs nothing.
+ */
+function startResponse() : void
+{
+    echo '';
+}
+
+
+/**
  * Responses to requests to the /end endpoint are ignored by the Battlesnake engine, so this function outputs nothing.
  */
 function endResponse() : void
@@ -41,13 +52,6 @@ function endResponse() : void
     echo '';
 }
 
-/**
- * Echoes a traditional 'pong' response to requests to the /ping endpoint.
- */
-function pingResponse() : void
-{
-    echo 'pong';
-}
 
 /**
  * Utility function to output an array of response data as JSON.
