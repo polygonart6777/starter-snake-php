@@ -7,7 +7,7 @@
  */
 
 /**
- * @param string $apiversion Must be the apiversion use by the snake
+ * @param string $apiversion Must be the apiversion used by the snake
  * @param string $author     Must be empty or contain the username of the snake' author
  * @param string $color      Must be a hexadecimal color string, preceded with a hash symbol, e.g. "#ff00ff"
  * @param string $headType   Head type string, see API docs for accepted values
@@ -32,7 +32,7 @@ function moveResponse(string $move) : void
         throw new \Exception('Move must be one of [up, down, left, right]');
     }
 
-    outputJsonResponse(['move' => $move]);
+    outputJsonResponse(['move' => $move, 'shout'=>'Get out of the way!']);
 }
 
 /**
@@ -40,7 +40,7 @@ function moveResponse(string $move) : void
  */
 function startResponse() : void
 {
-    echo '';
+    echo 'Watch out ya filthy animals';
 }
 
 
@@ -49,7 +49,7 @@ function startResponse() : void
  */
 function endResponse() : void
 {
-    echo '';
+    echo 'See ya!';
 }
 
 
